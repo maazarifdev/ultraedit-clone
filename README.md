@@ -6,7 +6,7 @@ This project focuses on responsive design, layout systems (Flexbox & Grid), and 
 ---
 
 ## 🚀 Live Demo
-👉 https://maazarifdev.github.io/ultraedit-clone/
+👉 [Live Demo](https://maazarifdev.github.io/ultraedit-clone/)
 
 ---
 
