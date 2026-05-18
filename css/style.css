@@ -19,6 +19,87 @@ body {
 }
 
 
+   /* ANIMATION KEYFRAMES */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 215, 65, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(255, 215, 65, 0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Scroll-reveal base state — JS adds .visible to trigger */
+.reveal {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-35px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(35px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
 /* ===== AD BAR ===== */
 .ad {
   background-color: rgb(255, 215, 65);
@@ -30,6 +111,7 @@ body {
   align-items: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 17px;
+  animation: fadeInDown 0.5s ease both;
 }
 
 .ad a {
@@ -37,6 +119,12 @@ body {
   text-decoration: none;
   border-bottom: 3px solid black;
   font-weight: 700;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.ad a:hover {
+  color: rgb(80, 60, 0);
+  border-color: rgb(80, 60, 0);
 }
 
 
@@ -55,6 +143,18 @@ nav {
   gap: 20px;
   flex-wrap: wrap;
   position: relative;
+  animation: fadeInDown 0.6s ease 0.1s both;
+  /* Sticky nav with blur backdrop */
+  position: sticky;
+  top: 8px;
+  z-index: 999;
+  backdrop-filter: blur(8px);
+  background-color: rgba(249, 249, 249, 0.95);
+  transition: box-shadow 0.3s ease;
+}
+
+nav.scrolled {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -67,6 +167,12 @@ nav {
   width: 180px;
   max-width: 100%;
   height: auto;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.logo img:hover {
+  opacity: 0.8;
+  transform: scale(1.03);
 }
 
 ul {
@@ -80,16 +186,18 @@ li {
 
 li a {
   border-bottom: 3px solid transparent;
-  transition: 0.4s;
+  transition: border-color 0.3s, color 0.3s;
   text-decoration: none;
   color: rgb(47, 47, 47);
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
+  position: relative;
 }
 
 li a:hover {
   border-bottom: 3px solid black;
+  color: black;
 }
 
 .li {
@@ -106,7 +214,7 @@ li a:hover {
 }
 
 .Download {
-  transition: 0.3s;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
   background-color: rgb(255, 215, 65);
   padding: 11px 25px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -114,15 +222,22 @@ li a:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  animation: pulse-glow 2.5s infinite 1.5s;
 }
 
 .Download:hover {
-  background-color: rgba(255, 213, 60, 0.721);
-  color: rgba(0, 0, 0, 0.626);
+  background-color: rgb(255, 200, 0);
+  color: rgba(0, 0, 0, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 215, 65, 0.5);
+}
+
+.Download:active {
+  transform: translateY(0);
 }
 
 .lang {
-  transition: 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
   background-color: rgb(249, 249, 249);
   padding: 17px 15px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -135,6 +250,7 @@ li a:hover {
 
 .lang:hover {
   background-color: rgb(225, 225, 225);
+  transform: translateY(-1px);
 }
 
 
@@ -163,11 +279,10 @@ li a:hover {
   height: 2.5px;
   background-color: rgb(47, 47, 47);
   border-radius: 3px;
-  transition: 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
   transform-origin: center;
 }
 
-/* Animate to X when open */
 .hamburger.open span:nth-child(1) {
   transform: translateY(7.5px) rotate(45deg);
 }
@@ -195,6 +310,20 @@ li a:hover {
   color: rgb(255, 176, 31);
   font-size: 60px;
   font-weight: 900;
+  display: inline-block;
+  /* Subtle shimmer on the accent word */
+  background: linear-gradient(
+    90deg,
+    rgb(255, 176, 31) 0%,
+    rgb(255, 220, 80) 40%,
+    rgb(255, 176, 31) 60%,
+    rgb(255, 176, 31) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite 2s;
 }
 
 .context,
@@ -205,6 +334,7 @@ li a:hover {
 
 .context {
   max-width: 650px;
+  animation: fadeInLeft 0.8s ease 0.3s both;
 }
 
 .link {
@@ -223,6 +353,13 @@ li a:hover {
   border-radius: 5px;
   padding: 7px;
   font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+  display: inline-block;
+}
+
+.link a:hover {
+  background-color: rgba(251, 251, 138, 0.5);
+  transform: translateY(-1px);
 }
 
 .context h1 {
@@ -244,6 +381,7 @@ li a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeInRight 0.8s ease 0.4s both;
 }
 
 .swiper {
@@ -252,6 +390,14 @@ li a:hover {
   aspect-ratio: 16 / 10;
   border-radius: 12px;
   overflow: hidden;
+  /* Floating shadow effect */
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.swiper:hover {
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.22);
+  transform: translateY(-4px);
 }
 
 .swiper-slide {
@@ -265,6 +411,11 @@ li a:hover {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.6s ease;
+}
+
+.swiper-slide-active img {
+  transform: scale(1.03);
 }
 
 .swiper-pagination-bullet-active {
@@ -278,7 +429,7 @@ li a:hover {
 }
 
 .ft {
-  transition: 0.2s;
+  transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s;
   background-color: rgb(255, 215, 65);
   padding: 11px 25px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -289,11 +440,17 @@ li a:hover {
 }
 
 .ft:hover {
-  background-color: rgb(255, 206, 30);
+  background-color: rgb(255, 200, 0);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 215, 65, 0.45);
+}
+
+.ft:active {
+  transform: translateY(-1px);
 }
 
 .vp {
-  transition: 0.2s;
+  transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s;
   background-color: rgb(225, 225, 225);
   padding: 11px 25px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -306,6 +463,12 @@ li a:hover {
 
 .vp:hover {
   background-color: rgb(204, 204, 204);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.vp:active {
+  transform: translateY(-1px);
 }
 
 
@@ -356,10 +519,11 @@ li a:hover {
   min-height: 400px;
   border-radius: 12px;
   padding: 25px;
-  transition: 0.3s;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.3s;
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  border: 1px solid transparent;
 }
 
 .box h3 {
@@ -386,12 +550,28 @@ li a:hover {
   text-decoration: none;
   align-self: flex-start;
   margin-top: auto;
+  transition: letter-spacing 0.25s, color 0.25s;
+}
+
+.box a:hover {
+  color: rgb(180, 130, 0);
+  letter-spacing: 0.5px;
 }
 
 .box:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  border-color: rgba(255, 215, 65, 0.4);
+  background-color: #fffef8;
 }
+
+/* Stagger box reveal delays — JS adds .visible */
+.box:nth-child(1) { transition-delay: 0s; }
+.box:nth-child(2) { transition-delay: 0.08s; }
+.box:nth-child(3) { transition-delay: 0.16s; }
+.box:nth-child(4) { transition-delay: 0.24s; }
+.box:nth-child(5) { transition-delay: 0.32s; }
+.box:nth-child(6) { transition-delay: 0.40s; }
 
 
 /* ===== PAGE 3 ===== */
@@ -439,6 +619,10 @@ li a:hover {
   animation: scroll 15s linear infinite;
 }
 
+.logo-track:hover {
+  animation-play-state: paused;
+}
+
 .brand-logo {
   color: rgb(0, 0, 0);
   font-size: 28px;
@@ -446,11 +630,13 @@ li a:hover {
   margin: 0 50px;
   font-family: Arial, Helvetica, sans-serif;
   white-space: nowrap;
+  transition: color 0.3s, transform 0.3s;
+  cursor: default;
 }
 
-@keyframes scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+.brand-logo:hover {
+  color: rgb(180, 130, 0);
+  transform: scale(1.08);
 }
 
 
@@ -464,6 +650,11 @@ li a:hover {
   border-radius: 8px;
   padding: 20px;
   flex-wrap: wrap;
+  transition: box-shadow 0.4s ease;
+}
+
+.card:hover {
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.09);
 }
 
 .business {
@@ -507,6 +698,7 @@ li a:hover {
   flex: 1;
   min-width: 280px;
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .deploy img {
@@ -514,11 +706,17 @@ li a:hover {
   width: 100%;
   aspect-ratio: 16/10;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.deploy:hover img {
+  transform: scale(1.04);
 }
 
 .deploy2,
 .deploy3 {
   width: 100%;
+  overflow: hidden;
 }
 
 .deploy2 img,
@@ -527,6 +725,12 @@ li a:hover {
   aspect-ratio: 16/10;
   object-fit: cover;
   margin-left: 0;
+  transition: transform 0.5s ease;
+}
+
+.deploy2:hover img,
+.deploy3:hover img {
+  transform: scale(1.04);
 }
 
 .comment {
@@ -558,6 +762,10 @@ li a:hover {
   font-size: 16px;
   width: 100%;
   background-color: #f7f7f7;
+  border-left: 3px solid rgb(255, 215, 65);
+  padding-left: 12px;
+  border-radius: 0 4px 4px 0;
+  font-style: italic;
 }
 
 .sub-container img {
@@ -565,6 +773,12 @@ li a:hover {
   height: 40px;
   width: 40px;
   border-radius: 50%;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.sub-container img:hover {
+  transform: scale(1.12);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .border {
@@ -573,7 +787,7 @@ li a:hover {
 }
 
 .discover {
-  transition: 0.3s;
+  transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s;
   background-color: rgb(255, 215, 65);
   padding: 11px 13px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -587,7 +801,11 @@ li a:hover {
 
 .discover:hover {
   background-color: rgb(246, 192, 0);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 215, 65, 0.4);
 }
+
+.discover:active { transform: translateY(-1px); }
 
 .business2,
 .deploy2 {
@@ -610,7 +828,7 @@ li a:hover {
 }
 
 .discover2 {
-  transition: 0.3s;
+  transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s;
   background-color: rgb(255, 215, 65);
   padding: 11px 13px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -624,7 +842,11 @@ li a:hover {
 
 .discover2:hover {
   background-color: rgb(246, 192, 0);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 215, 65, 0.4);
 }
+
+.discover2:active { transform: translateY(-1px); }
 
 .border2 {
   margin-left: 25px;
@@ -651,7 +873,7 @@ li a:hover {
 }
 
 .discover3 {
-  transition: 0.3s;
+  transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s;
   background-color: rgb(255, 215, 65);
   padding: 11px 13px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -665,7 +887,11 @@ li a:hover {
 
 .discover3:hover {
   background-color: rgb(246, 192, 0);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 215, 65, 0.4);
 }
+
+.discover3:active { transform: translateY(-1px); }
 
 .border3 {
   margin-left: 20px;
@@ -713,12 +939,37 @@ li a:hover {
 }
 
 .show {
-  transition: 0.4s;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background-color 0.3s;
   background-color: white;
   padding: 25px;
   border-radius: 12px;
   min-height: 150px;
   box-sizing: border-box;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shine sweep on hover */
+.show::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.show:hover::after {
+  left: 130%;
 }
 
 .show h3 {
@@ -731,16 +982,23 @@ li a:hover {
 .show img {
   display: block;
   margin: auto;
+  transition: transform 0.35s ease;
 }
 
 .show:hover {
   transform: translateY(-9px);
   cursor: pointer;
-  box-shadow: inset 1px -8px 18px rgb(144, 144, 144);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 215, 65, 0.5);
+  background-color: #fffef5;
+}
+
+.show:hover img {
+  transform: scale(1.12) rotate(-2deg);
 }
 
 .now {
-  transition: 0.3s ease;
+  transition: background-color 0.25s, transform 0.25s, box-shadow 0.25s;
   background-color: rgb(255, 215, 65);
   padding: 11px 17px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -754,7 +1012,12 @@ li a:hover {
 
 .now:hover {
   background-color: rgb(243, 190, 0);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(255, 215, 65, 0.5);
+}
+
+.now:active {
+  transform: translateY(-1px);
 }
 
 
@@ -782,6 +1045,11 @@ footer {
 
 .footer-left img {
   width: 60px;
+  transition: transform 0.3s;
+}
+
+.footer-left img:hover {
+  transform: rotate(-5deg) scale(1.08);
 }
 
 .footer-left h2 {
@@ -810,6 +1078,11 @@ footer {
   background-color: #333;
   border-radius: 6px;
   overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+
+.input-box:focus-within {
+  box-shadow: 0 0 0 2px rgba(255, 215, 65, 0.6);
 }
 
 .input-box input {
@@ -827,6 +1100,15 @@ footer {
   padding: 0 20px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.25s, transform 0.2s;
+}
+
+.input-box button:hover {
+  background-color: rgb(243, 190, 0);
+}
+
+.input-box button:active {
+  transform: scale(0.97);
 }
 
 .footer-right {
@@ -853,10 +1135,13 @@ footer {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   color: #d4d4d4;
   text-decoration: none;
+  transition: color 0.25s, padding-left 0.25s;
+  display: inline-block;
 }
 
 .footer-column a:hover {
   color: rgb(255, 215, 65);
+  padding-left: 5px;
 }
 
 img {
@@ -871,7 +1156,6 @@ img {
 /* ===== TABLETS (992px and below) ===== */
 @media (max-width: 992px) {
 
-  /* Show hamburger, hide nav items by default */
   .hamburger {
     display: flex;
   }
@@ -885,6 +1169,7 @@ img {
   .li.nav-open,
   .button.nav-open {
     display: flex;
+    animation: fadeInDown 0.3s ease both;
   }
 
   nav {
@@ -914,7 +1199,6 @@ img {
     padding-bottom: 12px;
   }
 
-  /* Hero stacks on tablet */
   .hero {
     flex-direction: column;
     text-align: center;
@@ -929,6 +1213,7 @@ img {
     max-width: 100%;
     min-width: unset;
     flex: none;
+    animation: none;
   }
 
   .swiper {
@@ -1169,5 +1454,21 @@ img {
 
   .show h3 {
     font-size: 20px;
+  }
+
+  /* Disable hover transforms on touch — no flickering */
+  .box:hover,
+  .show:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
