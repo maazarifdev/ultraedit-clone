@@ -1149,10 +1149,7 @@ img {
 }
 
 
-/* ============================================================
-   RESPONSIVE BREAKPOINTS
-   ============================================================ */
-
+/* Responsiveness Breakouts: */
 /* ===== TABLETS (992px and below) ===== */
 @media (max-width: 992px) {
 
